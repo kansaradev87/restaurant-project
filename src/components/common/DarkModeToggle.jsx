@@ -10,6 +10,9 @@ function DarkModeToggle() {
         setDarkMode(!darkMode) //toggles mode
     }
 
+
+    //this is used to toggle themes
+    
     // Effect to apply dark mode class to document
     useEffect(() => {
         if (darkMode) {
