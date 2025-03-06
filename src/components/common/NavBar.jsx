@@ -1,5 +1,7 @@
 import React from 'react'
 import DarkModeToggle from './DarkModeToggle'
+import MenuBar from './MenuBar'
+import MenuButton from './MenuButton'
 
 function NavBar() {
   return (
@@ -7,11 +9,16 @@ function NavBar() {
     md:my-9
     '>
         {/* items center-centers vertically */}
-        <div className='h-14 w-full  flex items-center justify-center  text-2xl
-        bg-lightmode dark:bg-darkmode-components dark:text-darkmode
-        md:flex md:justify-center md:items-center md:w-5/6 md:text-3xl md:rounded-xl
-        '> 
-            navbar
+        
+        <div className="relative h-14 w-full flex items-center text-2xl 
+            bg-lightmode dark:bg-darkmode-components dark:text-darkmode 
+            md:w-5/6 md:text-3xl md:rounded-xl px-4">
+            <div className="text-sm visible lg:hidden">
+                <MenuButton />
+            </div>
+            <div className="absolute left-1/2 transform -translate-x-1/2">
+                Navbar
+            </div>
         </div>
     </div>
   )
