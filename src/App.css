@@ -4,3 +4,6 @@ body{
 .dark{
   background-color: #121212da;
 }
+.dark * {
+  @apply border-0;
+}
