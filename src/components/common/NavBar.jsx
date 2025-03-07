@@ -10,7 +10,7 @@ function NavBar() {
     '>
         {/* items center-centers vertically */}
         
-        <div className="relative h-14 w-full flex items-center text-2xl 
+        <div className="relative h-14 w-full flex items-center text-2xl shadow-2xl
             bg-lightmode dark:bg-darkmode-components dark:text-darkmode 
             md:w-5/6 md:text-3xl md:rounded-xl px-4">
             <div className="text-sm visible lg:hidden">
