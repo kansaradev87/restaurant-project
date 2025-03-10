@@ -5,23 +5,26 @@ import MenuBar from './components/common/MenuBar'
 import DarkModeToggle from './components/common/DarkModeToggle'
 import SidePanel from './components/common/SidePanel'
 import Hero from './components/common/Hero'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Home from './pages/Home'
+import Table from './pages/Table'
+import Expense from './pages/Expense'
+import Revenue from './pages/Revenue'
+import Employee from './pages/Employee'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-    <div className="main">
-      <NavBar />
-      <div className='flex justify-center pt-4 dark:bg-darkmode-bg'>
-        <aside className='w-1/6 ' >
-          <SidePanel />
-        </aside>
-        <aside className='pl-4 w-4/6'>
-          <Hero />
-        </aside>
-      </div>
-    </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/table' element={<Table />}  />
+          <Route path='/expense' element={<Expense />}  />
+          <Route path='/revenue' element={<Revenue />}  />
+          <Route path='/employee' element={<Employee />}  />
+
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
