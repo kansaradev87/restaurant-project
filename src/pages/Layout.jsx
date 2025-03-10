@@ -15,7 +15,6 @@ function Layout() {
                     <SidePanel />
                 </aside>
                 <aside className=' pl-0 lg:pl-4 w-screen lg:w-4/6 md:w-5/6 md:justify-center sm:w-screen sm:justify-center sm:pl-0 sm:pt-0'>
-                    <Outlet />
                 </aside>
             </div>
         </div>
