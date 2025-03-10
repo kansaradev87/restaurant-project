@@ -13,7 +13,6 @@ function MenuBar() {
         <li className='hover:dark:bg-red-500 hover:rounded-md hover:bg-red-500 p-3'>lhu</li>
         <li className='hover:dark:bg-red-500 hover:rounded-md hover:bg-red-500 p-3'>iu</li>
         <li className='hover:dark:bg-red-500 hover:rounded-md hover:bg-red-500 p-3'>oi</li>
-        <DarkModeToggle/>
       </ul>
     </div>
   )
