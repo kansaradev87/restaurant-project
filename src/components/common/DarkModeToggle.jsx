@@ -1,36 +1,38 @@
-import { Switch } from '@mui/material'
-import React, { useState, useEffect } from 'react'
+import { Switch } from '@mui/material';
+import React, { useState, useEffect } from 'react';
 
 function DarkModeToggle() {
-    // Initializing with a initial value intially light mode
-    const [darkMode, setDarkMode] = useState(false)
-    
+    // Check if dark mode preference exists in local storage
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+
+    // Initialize state with stored value or false if not found
+    const [darkMode, setDarkMode] = useState(savedDarkMode);
+
     // Toggle function that actually changes the state
     const changeMode = () => {
-        setDarkMode(!darkMode) //toggles mode
-    }
+        const newMode = !darkMode;
+        setDarkMode(newMode);
+        // Store the current mode preference in local storage
+        localStorage.setItem('darkMode', JSON.stringify(newMode));
+    };
 
-
-    //this is used to toggle themes
-    
     // Effect to apply dark mode class to document
     useEffect(() => {
         if (darkMode) {
-            document.documentElement.classList.add('dark') //adds darkmode classes 
+            document.documentElement.classList.add('dark');
         } else {
-            document.documentElement.classList.remove('dark') //removes darkmode class
+            document.documentElement.classList.remove('dark');
         }
-    }, [darkMode])
-    
+    }, [darkMode]);
+
     return (
-        <div className=' '>
-            <Switch 
-//switch imported from mui creates a toggle button 
-                checked={darkMode} //if button checked enables darkmode
-                onChange={changeMode} //toggles between mode onchange
+        <div className=''>
+            <Switch
+                checked={darkMode}
+                onChange={changeMode}
             />
         </div>
-    )
+    );
 }
 
-export default DarkModeToggle
+export default DarkModeToggle;
