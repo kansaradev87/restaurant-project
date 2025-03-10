@@ -11,12 +11,15 @@ export default {
         // 'darkmode': '#121212da',
         'darkmode-bg':"#343434",
         'darkmode-components':"#424242",
-        'lightmode':'#f3f4f6'
+        'lightmode':'#f3f4f6',
+        'darkmode-hover':"#bdbdbd",
+        'lightmode-component':"#c8cacda6"
         // You can customize this color
       },
       textColor: {
         'darkmode': '#ffffff',
-        'lightmode':'#f3f4f6'
+        'lightmode':'#f3f4f6',
+        'hover-text':"#333333"
         // You can customize this color
       },
     },
