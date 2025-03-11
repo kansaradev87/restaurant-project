@@ -6,19 +6,11 @@ import Hero from '../components/common/Hero'
 import RevenueMainComponent from '../components/revenue/RevenueMainComponent'
 function Revenue() {
   return (
-    <div>
+
       <div className="main">
-           <NavBar />
-            <div className='flex justify-center pt-0  dark:bg-darkmode-bg sm:pt-0 md:pt-4'>
-                <aside className=' lg:w-1/6 lg:visible ' >
-                    <SidePanel />
-                </aside>
-                <aside className=' pl-0 lg:pl-4 w-screen lg:w-4/6 md:w-5/6 md:justify-center sm:w-screen sm:justify-center sm:pl-0 sm:pt-0'>
+                <aside className=' pl-0 lg:pl-4 w-screen md:w-full md:justify-center sm:w-screen sm:justify-center sm:pl-0 sm:pt-0'>
                     <RevenueMainComponent />
-                    
                 </aside>
-            </div>
-        </div>
     </div>
   )
 }
