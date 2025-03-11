@@ -1,9 +1,11 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import UserInfo from './UserInfo'
+import LogOut from './LogOut'
 
 function SidePanel() {
   return (
-    <div className="dark:border-0 flex ">
+    <div className="dark:border-0  ">
       <div className='h-3/4 bg-lightmode  dark:bg-darkmode-components md:rounded-2xl rounded-none 
         w-full dark:border-0 dark:text-darkmode shadow-2xl
         hidden lg:block
@@ -15,6 +17,10 @@ function SidePanel() {
           <li className=' h-16 py-5 px-2  mb-2 rounded-xl duration-200 hover:dark:bg-darkmode-bg hover:bg-lightmode-component'><NavLink to="/revenue">Revenue</NavLink></li>
           <li className=' h-16 py-5 px-2  mt-2 rounded-xl duration-200 hover:dark:bg-darkmode-bg hover:bg-lightmode-component'><NavLink to="/employee">Employee</NavLink></li>
         </ul>
+      </div>
+      <div className='h-1/4'>
+        <UserInfo />
+        <LogOut />
       </div>
     </div>
   )
