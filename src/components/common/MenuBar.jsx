@@ -4,7 +4,7 @@ import DarkModeToggle from './DarkModeToggle'
 function MenuBar() {
   const [isOpen,setOpen]=useState(false)
   return (
-    <div>
+    <div className=''>
       <ul className='bg-lightmode w-60 p-2 sm:w-72 sm:p-4 rounded-md
       dark:bg-darkmode-components
       '>
