@@ -4,7 +4,7 @@ function MenuBar({onLinkClick}) {
   const [isOpen,setOpen]=useState(false)
   return (
     <div className=''>
-      {/* this is menubar for small screens with necessary links in with used for routing */}
+      {/* this is menubar added hover and isactive for small screens with necessary links in with used for routing */}
       <ul className='bg-lightmode w-60 p-2 sm:w-72 sm:p-4 rounded-md
       dark:bg-darkmode-components
       '>
