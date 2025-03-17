@@ -9,18 +9,32 @@ export default {
     extend: {
       backgroundColor: {
         // 'darkmode': '#121212da',
-        'darkmode-bg':"#343434",
-        'darkmode-components':"#424242",
-        'lightmode':'#f3f4f6',
-        'darkmode-hover':"#bdbdbd",
-        'lightmode-component':"#c8cacda6"
-        // You can customize this color
+        'darkmode-bg': "#343434",
+        'darkmode-components': "#424242",
+        'lightmode': '#f3f4f6',
+        'darkmode-hover': "#bdbdbd",
+        'lightmode-component': "#c8cacda6",
+        
+        // Added hover and active colors for dark mode
+        'darkmode-hover': "#525252",
+        'darkmode-active': "#606060",
+        
+        // Added hover and active colors for light mode
+        'lightmode-hover': "#e5e7eb",
+        'lightmode-active': "#d1d5db",
       },
       textColor: {
         'darkmode': '#ffffff',
-        'lightmode':'#f3f4f6',
-        'hover-text':"#333333"
-        // You can customize this color
+        'lightmode': '#f3f4f6',
+        'hover-text': "#333333",
+        
+        // Added hover and active text colors for dark mode
+        'darkmode-hover-text': "#f3f4f6",
+        'darkmode-active-text': "#ffffff",
+        
+        // Added hover and active text colors for light mode
+        'lightmode-hover-text': "#1f2937",
+        'lightmode-active-text': "#111827",
       },
     },
   },
