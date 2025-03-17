@@ -1,18 +1,58 @@
 import React, { useState } from 'react'
-import Hamburger from 'hamburger-react'
-import DarkModeToggle from './DarkModeToggle'
-function MenuBar() {
+import { NavLink } from 'react-router-dom'
+function MenuBar({onLinkClick}) {
   const [isOpen,setOpen]=useState(false)
   return (
     <div className=''>
+      {/* this is menubar for small screens with necessary links in with used for routing */}
       <ul className='bg-lightmode w-60 p-2 sm:w-72 sm:p-4 rounded-md
       dark:bg-darkmode-components
       '>
-        <li className='hover:dark:bg-red-500 hover:rounded-md hover:bg-red-500 p-3'>kdk</li>
-        <li className='hover:dark:bg-red-500 hover:rounded-md hover:bg-red-500 p-3'>jhj</li>
-        <li className='hover:dark:bg-red-500 hover:rounded-md hover:bg-red-500 p-3'>lhu</li>
-        <li className='hover:dark:bg-red-500 hover:rounded-md hover:bg-red-500 p-3'>iu</li>
-        <li className='hover:dark:bg-red-500 hover:rounded-md hover:bg-red-500 p-3'>oi</li>
+        <NavLink to='/' onClick={onLinkClick} className={({isActive}) => 
+              `block rounded-md p-3 text-lg font-bol duration-200 
+              ${isActive ? 
+                'bg-lightmode-active text-lightmode-active-text dark:bg-darkmode-active dark:text-darkmode-active-text' : 
+                'hover:bg-lightmode-hover hover:text-lightmode-hover-text dark:hover:bg-darkmode-hover dark:hover:text-darkmode-hover-text'
+              }`
+            }>
+              <li >Home</li>
+        </NavLink>
+        <NavLink to='/table' onClick={onLinkClick} className={({isActive}) => 
+              `block rounded-md p-3 text-lg font-bol duration-200 
+              ${isActive ? 
+                'bg-lightmode-active text-lightmode-active-text dark:bg-darkmode-active dark:text-darkmode-active-text' : 
+                'hover:bg-lightmode-hover hover:text-lightmode-hover-text dark:hover:bg-darkmode-hover dark:hover:text-darkmode-hover-text'
+              }`
+            }>
+              <li>Table</li>
+        </NavLink>
+        <NavLink to='/expense' onClick={onLinkClick} className={({isActive}) => 
+              `block rounded-md p-3 text-lg font-bol duration-200 
+              ${isActive ? 
+                'bg-lightmode-active text-lightmode-active-text dark:bg-darkmode-active dark:text-darkmode-active-text' : 
+                'hover:bg-lightmode-hover hover:text-lightmode-hover-text dark:hover:bg-darkmode-hover dark:hover:text-darkmode-hover-text'
+              }`
+            }>
+              <li>Expense</li>
+        </NavLink>
+        <NavLink to='/revenue' onClick={onLinkClick} className={({isActive}) => 
+              `block rounded-md p-3 text-lg font-bol duration-200 
+              ${isActive ? 
+                'bg-lightmode-active text-lightmode-active-text dark:bg-darkmode-active dark:text-darkmode-active-text' : 
+                'hover:bg-lightmode-hover hover:text-lightmode-hover-text dark:hover:bg-darkmode-hover dark:hover:text-darkmode-hover-text'
+              }`
+            }>
+              <li>Revenue</li>
+        </NavLink>
+        <NavLink to='/employee' onClick={onLinkClick} className={({isActive}) => 
+              `block rounded-md p-3 text-lg font-bol duration-200 
+              ${isActive ? 
+                'bg-lightmode-active text-lightmode-active-text dark:bg-darkmode-active dark:text-darkmode-active-text' : 
+                'hover:bg-lightmode-hover hover:text-lightmode-hover-text dark:hover:bg-darkmode-hover dark:hover:text-darkmode-hover-text'
+              }`
+            }>
+              <li>Employee</li>
+          </NavLink>
       </ul>
     </div>
   )
