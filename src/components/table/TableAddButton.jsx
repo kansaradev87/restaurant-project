@@ -13,14 +13,27 @@ function TableAddButton() {
     return (
         <div>
         {/* Conditionally render the button only when display is false */}
-            {!display && (
-                <button 
-                className='border h-32 w-40 rounded-lg flex justify-center items-center mt-4 ml-5 hover:bg-lightmode-hover dark:hover:bg-darkmode-hover' 
-                onClick={addTable}
+                {!display && (
+                    <div className='
+                    flex justify-center items-center
+                    md:justify-start md:items-start'>
+                    <button
+                    className='
+                    border 
+                    w-48 h-36 
+                    md:w-52 md:h-32 
+                    rounded-lg  
+                    mt-4 ml-0 md:ml-8
+                    flex justify-center items-center 
+                    hover:bg-lightmode-hover dark:hover:bg-darkmode-hover
+                    transition-all duration-300 ease-in-out
+                    ' 
+                    onClick={addTable}
                 >
-                <IoMdAdd />
+                    <IoMdAdd className='text-2xl' /> {/* Add icon styling */}
                 </button>
-            )}
+                </div>
+                )}
         {/* Conditionally render the AddTableForm when display is true */}
             {display && <AddTableForm setDisplay={setDisplay} />}
         </div>
