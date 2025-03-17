@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 function AddTableForm() {
     const [display,setDisplay]=useState();
   return (
-    <div className='flex justify-center items-center mt-36'>
-        <div className=' dark:bg-darkmode-hover w-2/3 bg-lightmode-hover rounded-xl'>
+    <div className='flex justify-center items-center mt-0 lg:mt-36'>
+        <div className=' dark:bg-darkmode-hover w-full h-full lg:h-auto lg:w-2/3 bg-lightmode-hover md:rounded-xl'>
             <div className='flex justify-center font-bold text-3xl items-center pt-3'>
                 add table
             </div>
