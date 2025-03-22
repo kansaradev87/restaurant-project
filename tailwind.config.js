@@ -36,6 +36,11 @@ export default {
         'lightmode-hover-text': "#1f2937",
         'lightmode-active-text': "#111827",
       },
+      borderColor:{
+        
+        'darkmode': '#ffffff',
+        'lightmode': '#000000',
+      }
     },
   },
   plugins: [],
