@@ -1,7 +1,8 @@
 import React from 'react'
-import TableAddButton from './TableAddButton'
-import AddTableForm from './AddTableForm'
-import DisplayTables from './DisplayTables'
+import TableAddButton from './buttons/TableAddButton'
+import TableDeleteButton from './buttons/TableDeleteButton'
+import TableUpdateButton from './buttons/TableUpdateButton'
+import TableDisplayButton from './buttons/TableDisplayButton'
 
 function TableMainComponent() {
   return (
@@ -12,10 +13,14 @@ function TableMainComponent() {
         md:w-full sm:w-screen w-screen md:mb-5
         overflow-y-auto  {/* Enable vertical scroll */}
       '>
-        <TableAddButton />
-        <div className=''>
+        <div className="grid lg:grid-cols-2  mt-2 ">
+        <TableAddButton/>
+        <TableDeleteButton/>
+        <TableUpdateButton/>
+        <TableDisplayButton/>
         </div>
 
+        
       </div>
     </div>
   )
