@@ -12,8 +12,8 @@ function AddTableForm({ setActiveAction }) {
     setLoading(true);
 
     try {
-      // Send data to your backend
-      const response = await axios.post('http://localhost:5000/api/tables', {
+      // sending data to your backend
+      const response = await axios.post('http://192.168.29.132:5000/api/tables', {
         name,
         capacity: parseInt(capacity),
       });
@@ -22,7 +22,7 @@ function AddTableForm({ setActiveAction }) {
       setName('');
       setCapacity('');
       setTimeout(() => {
-        setActiveAction(null); // Hide the form and show buttons again after a success
+        setActiveAction(null); // hiding the form and show buttons again after a success
       }, 2000); // Wait for 2 seconds before hiding the form
     } catch (error) {
       console.error('Error adding table:', error);
