@@ -33,10 +33,15 @@ function DisplayTable() {
       {tables.length === 0 ? (
         <div>No tables available</div>
       ) : (
-        <div className='grid grid-cols-2'>
+        <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5'>
           {tables.map((table) => (
             <div
-            className={`flex justify-center items-center border w-44 rounded-md mt-4 ml-2 h-36 ${table.status="Available" ? 'bg-green-500' : 'bg-red-500'}`} // Conditionally set the background color
+            className={`flex justify-center items-center  w-44 rounded-md 
+              mt-4 ml-2 
+              md:mt-4 md:ml-2 h-36
+              sm:ml-6 sm:mb-1
+              lg:ml-3
+              ${table.status==="Available" ? 'bg-green-500' : 'bg-red-500'}`} // Conditionally set the background color
             key={table._id}
           >
               <div>
