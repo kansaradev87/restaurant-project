@@ -13,6 +13,11 @@ const tableSchema = new mongoose.Schema({
     required: true,
     min: 1,
   },
+  status:{
+    type: String,
+    required:true,
+    default:"Occupied",
+  },
   createdAt: {
     type: Date,
     default: Date.now,
