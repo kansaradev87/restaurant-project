@@ -41,7 +41,7 @@ function DisplayTable() {
               md:mt-4 md:ml-2 h-36
               sm:ml-6 sm:mb-1
               lg:ml-3
-              ${table.status==="Available" ? 'bg-green-500' : 'bg-red-500'}`} // Conditionally set the background color
+              ${table.status==="Available" ? 'bg-green-500' : 'bg-red-500'}`} // conditional bg-change
             key={table._id}
           >
               <div>
