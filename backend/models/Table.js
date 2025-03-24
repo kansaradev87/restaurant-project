@@ -16,7 +16,7 @@ const tableSchema = new mongoose.Schema({
   status:{
     type: String,
     required:true,
-    default:"Occupied",
+    default:"Available",
   },
   createdAt: {
     type: Date,
