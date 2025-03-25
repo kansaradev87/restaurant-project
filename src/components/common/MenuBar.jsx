@@ -27,14 +27,14 @@ function MenuBar({onLinkClick}) {
             }>
               <li>Table</li>
         </NavLink>
-        <NavLink to='/expense' onClick={onLinkClick} className={({isActive}) => 
+        <NavLink to='/menu' onClick={onLinkClick} className={({isActive}) => 
               `block rounded-md p-3 text-lg  duration-200 
               ${isActive ? 
                 'bg-lightmode-active text-lightmode-active-text dark:bg-darkmode-active dark:text-darkmode-active-text' : 
                 'hover:bg-lightmode-hover hover:text-lightmode-hover-text dark:hover:bg-darkmode-hover dark:hover:text-darkmode-hover-text'
               }`
             }>
-              <li>Expense</li>
+              <li>Menu</li>
         </NavLink>
         <NavLink to='/revenue' onClick={onLinkClick} className={({isActive}) => 
               `block rounded-md p-3 text-lg  duration-200 

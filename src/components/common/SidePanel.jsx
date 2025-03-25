@@ -44,7 +44,7 @@ function SidePanel() {
           </NavLink>
           
           <NavLink 
-            to="/expense" 
+            to="/menu" 
             className={({isActive}) => 
               `block rounded-xl duration-200 
               ${isActive ? 
@@ -54,7 +54,7 @@ function SidePanel() {
             }
           >
             <li className="flex items-center h-16 px-4">
-              <span className="text-lg font-medium">Expense</span>
+              <span className="text-lg font-medium">Menu</span>
             </li>
           </NavLink>
           
