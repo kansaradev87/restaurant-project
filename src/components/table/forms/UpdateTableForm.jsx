@@ -10,7 +10,7 @@ function UpdateTableForm({ setActiveAction }) {
   const [fetchingTables, setFetchingTables] = useState(true);
   const [message, setMessage] = useState('');
 
-  // Fetch tables when component mounts
+  // fetch tables when component mounts
   useEffect(() => {
     const fetchTables = async () => {
       try {
