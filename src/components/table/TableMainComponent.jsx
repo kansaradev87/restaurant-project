@@ -9,7 +9,7 @@ import UpdateTableForm from './forms/UpdateTableForm'
 import DisplayTable from './forms/DisplayTable'
 
 function TableMainComponent() {
-  // Central state to track which form is currently active
+  // main state to track which form is currently active
   const [activeForm, setActiveForm] = useState(null);
 
   return (
@@ -20,9 +20,7 @@ function TableMainComponent() {
         md:w-full sm:w-screen w-screen md:mb-5
         overflow-y-auto
       '>
-        {/* Conditionally render forms based on activeForm state */}
         {activeForm === 'add' && <AddTableForm setDisplay={() => setActiveForm(null)} />}
-        {/* Render other forms conditionally */}
         {activeForm === 'delete' && <DeleteTableForm setDisplay={() => setActiveForm(null)} />} 
         {activeForm === 'update' && <UpdateTableForm setDisplay={() => setActiveForm(null)} />}
         {activeForm === 'display' && <DisplayTable setDisplay={() => setActiveForm(null)} />} 
