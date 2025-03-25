@@ -88,6 +88,50 @@ app.delete('/api/tables/:name', async (req, res) => {
   }
 });
 
+// update table route
+app.put('/api/tables', async (req, res) => {
+  try {
+    const { currentName, newName, capacity } = req.body;
+
+    // input validation
+    if (!currentName) {
+      return res.status(400).json({ message: 'Current table name is required' });
+    }
+
+    // Find the existing table
+    const existingTable = await Table.findOne({ name: currentName });
+    if (!existingTable) {
+      return res.status(404).json({ message: `Table with name '${currentName}' not found` });
+    }
+
+    // Check if new name (if provided) is already taken
+    if (newName && newName !== currentName) {
+      const nameConflict = await Table.findOne({ name: newName });
+      if (nameConflict) {
+        return res.status(400).json({ message: `Table with name '${newName}' already exists` });
+      }
+    }
+
+    // Update the table
+    existingTable.name = newName || currentName;
+    if (capacity !== undefined) {
+      existingTable.capacity = capacity;
+    }
+
+    await existingTable.save();
+
+    res.status(200).json({ 
+      message: 'Table updated successfully',
+      table: existingTable 
+    });
+  } catch (error) {
+    console.error('Error updating table:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
+
+
+
 //starting the server
 app.listen(PORT, '192.168.29.132', () => {
   console.log(`Server running on port ${PORT}`);
