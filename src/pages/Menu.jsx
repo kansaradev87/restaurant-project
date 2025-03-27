@@ -1,8 +1,4 @@
 import React from 'react'
-
-import NavBar from '../components/common/NavBar'
-import SidePanel from '../components/common/SidePanel'
-import Hero from '../components/common/Hero'
 import MenuMainComponent from '../components/menu/MenuMainComponent'
 function Menu() {
   return (
