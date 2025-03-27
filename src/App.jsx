@@ -6,6 +6,8 @@ import Menu from './pages/Menu'
 import Revenue from './pages/Revenue'
 import Employee from './pages/Employee'
 import Layout from './pages/Layout'
+import Category from './components/menu/category/Category'
+import Item from './components/menu/item/Item'
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
             <Route index element={<Home />} />
             <Route path='table' element={<Table />} />
             <Route path='menu' element={<Menu />} />
+            <Route path='category' element={<Category />}/>
+            <Route path='item' element={<Item />}/>
             <Route path='revenue' element={<Revenue />} />
             <Route path='employee' element={<Employee />} />
           </Route>
