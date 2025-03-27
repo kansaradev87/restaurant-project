@@ -2,9 +2,7 @@ import React from 'react'
 
 import NavBar from '../components/common/NavBar'
 import SidePanel from '../components/common/SidePanel'
-import Hero from '../components/common/Hero'
 import { Outlet } from 'react-router-dom'
-import UserInfo from '../components/common/UserInfo'
 
 function Layout() {
   return (
