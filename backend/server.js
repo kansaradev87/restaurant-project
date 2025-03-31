@@ -10,6 +10,8 @@ const PORT = process.env.PORT || 5000;
 // Import the Table model from the models folder
 const Table = require('./models/Table'); 
 const tableRoutes = require('./routes/tableRoutes');
+const Category =require('./models/Category');
+const categoryRoutes=require('./routes/categoryRoutes');
 
 // middleware
 app.use(cors());
@@ -27,6 +29,7 @@ app.get("/", (req, res) => {
 
 // Mount the table routes
 app.use('/api/tables', tableRoutes);
+app.use('/api/categories', categoryRoutes);
 
 console.log('About to start server...');
 app.listen(PORT, () => {
