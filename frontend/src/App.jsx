@@ -6,6 +6,7 @@ import Menu from './pages/Menu'
 import Revenue from './pages/Revenue'
 import Employee from './pages/Employee'
 import Layout from './pages/Layout'
+import DisplayMenu from './pages/DisplayMenu'
 import Category from './components/menu/category/Category'
 import Item from './components/menu/item/Item'
 
@@ -22,6 +23,7 @@ function App() {
             <Route path='item' element={<Item />}/>
             <Route path='revenue' element={<Revenue />} />
             <Route path='employee' element={<Employee />} />
+            <Route path='displaymenu' element={<DisplayMenu/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
