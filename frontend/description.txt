@@ -1,0 +1,5 @@
+git status
+git add filename
+git commit -m "message"
+git push -u origin main
+git add $(git ls-files --others --exclude-standard) add untracked files 
