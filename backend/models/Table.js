@@ -22,6 +22,20 @@ const tableSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  order:{
+    orderName:{
+      type:String,
+      default:""
+    },
+    orderQuantity:{
+      type: Number,
+      default: 0,
+    },
+    orderPrice:{
+      type: Number,
+      default:0,
+    },
+  }
 });
 
 // Create Table model

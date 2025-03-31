@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // Make sure to install axios: npm install axios
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import the CSS
 
 function AddTableForm({ setActiveAction }) {
   const [name, setName] = useState('');
@@ -12,21 +14,41 @@ function AddTableForm({ setActiveAction }) {
     setLoading(true);
 
     try {
-      // sending data to your backend
       const response = await axios.post('http://localhost:5000/api/tables', {
         name,
         capacity: parseInt(capacity),
+      });
+
+      toast.success('Table added successfully!', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light', // or 'dark'
       });
 
       setMessage('Table added successfully!');
       setName('');
       setCapacity('');
       setTimeout(() => {
-        setActiveAction(null); // hiding the form and show buttons again after a success
-      }, 2000); // Wait for 2 seconds before hiding the form
+        setActiveAction(null);
+      }, 2000);
     } catch (error) {
       console.error('Error adding table:', error);
       setMessage(error.response?.data?.message || 'Failed to add table');
+      toast.error(error.response?.data?.message || 'Failed to add table', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
     } finally {
       setLoading(false);
     }
@@ -37,7 +59,7 @@ function AddTableForm({ setActiveAction }) {
     setName('');
     setCapacity('');
     setMessage('');
-    setActiveAction(null); // Hide the form and show buttons again when canceled
+    setActiveAction(null);
   };
 
   return (
@@ -73,15 +95,7 @@ function AddTableForm({ setActiveAction }) {
                 className='h-8 w-56 rounded-md dark:bg-darkmode-components border dark:hover:bg-darkmode-hover'
               />
               <br />
-              {message && (
-                <div
-                  className={`mt-3 text-center ${
-                    message.includes('Failed') || message.includes('Error') ? 'text-red-500' : 'text-green-500'
-                  }`}
-                >
-                  {message}
-                </div>
-              )}
+              
               <div className="flex justify-center items-center my-5">
                 <button
                   type="submit"
@@ -101,6 +115,7 @@ function AddTableForm({ setActiveAction }) {
           </form>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

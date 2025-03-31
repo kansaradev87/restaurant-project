@@ -11,7 +11,6 @@ function CategoryMainComponent() {
         md:w-full sm:w-screen w-screen md:mb-5
       '>
         <div className='grid grid-cols-2 border'>
-          
           <AddCategoryButton />
           <DeleteCategoryButton />
           <UpdateCategoryButton />
