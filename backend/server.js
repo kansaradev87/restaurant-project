@@ -12,6 +12,8 @@ const Table = require('./models/Table');
 const tableRoutes = require('./routes/tableRoutes');
 const Category =require('./models/Category');
 const categoryRoutes=require('./routes/categoryRoutes');
+const Item =require('./models/Item');
+const itemRoutes=require('./routes/itemRoutes');
 
 // middleware
 app.use(cors());
@@ -30,6 +32,7 @@ app.get("/", (req, res) => {
 // Mount the table routes
 app.use('/api/tables', tableRoutes);
 app.use('/api/categories', categoryRoutes);
+app.use('/api/items', itemRoutes);
 
 console.log('About to start server...');
 app.listen(PORT, () => {
