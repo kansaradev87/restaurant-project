@@ -37,7 +37,7 @@ function DeleteCategoryForm({ setActiveAction }) {
     setLoading(true);
 
     try {
-      await axios.delete(`http://192.168.29.132:5000/api/categories/${name}`);
+      await axios.delete(`http://localhost:5000/api/categories/${name}`);
 
       toast.success('Category deleted successfully!', {
               position: 'top-right',
