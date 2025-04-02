@@ -37,7 +37,7 @@ app.use('/api/items', itemRoutes);
 // app.use('/api/auth',authRoutes)
 
 console.log('About to start server...');
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0',() => {
   console.log(`Server running on port ${PORT}`);
 });
 console.log('Server start attempted');
