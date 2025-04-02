@@ -1,7 +1,7 @@
 const Item = require('../models/Item');
 const Category=require('../models/Category')
 
-exports.display = async(req, res) => {
+exports.getAllItems = async(req, res) => {
     try {
         const item = await Item.find().sort({createdAt: -1});
         res.json(item);
@@ -13,30 +13,19 @@ exports.createItem = async(req, res) => {
     try {
         const {name, price, category} = req.body;
         
-        // Validate required fields
-        if(!name) {
-            return res.status(400).json({message: "Name is required"});
-        }
-        if(price === undefined || price === null) {
-            return res.status(400).json({message: "Price is required"});
-        }
-        if(!category) {
-            return res.status(400).json({message: "Category is required"});
-        }
-        
-        // First, find the category to get its name
+        //  finding the category name bi id
         const categoryDoc = await Category.findById(category);
         if (!categoryDoc) {
             return res.status(400).json({message: "Category not found"});
         }
         
-        // Check for existing item
+        // checking for existing item
         const existingItem = await Item.findOne({name, category});
         if (existingItem) {
             return res.status(400).json({message: `Item ${name} already exists in ${categoryDoc.name} category`});
         }
 
-        // Create and save new item with all required fields
+        // creating and saving new item with all required fields
         const newItem = new Item({
             name, 
             price, 
@@ -53,3 +42,27 @@ exports.createItem = async(req, res) => {
         return res.status(500).json({ message: "Internal server error", error: error.message });
     }
 }
+
+exports.deleteItem = async (req, res) => {
+    try {
+        const { name, category } = req.params;
+
+        // finding by name
+        const categoryDoc = await Category.findOne({ name: category });
+        if (!categoryDoc) {
+            return res.status(404).json({ message: `Category ${category} not found` });
+        }
+
+        // finding and deleting item
+        const deleteItem = await Item.findOneAndDelete({ name, category: categoryDoc._id });
+
+        if (!deleteItem) {
+            return res.status(404).json({ message: `Item ${name} not found in category ${category}` });
+        }
+
+        res.status(200).json({ message: `Item ${name} from category ${category} deleted successfully` });
+
+    } catch (error) {
+        res.status(500).json({ message: "server error", error: error.message });
+    }
+};
