@@ -14,6 +14,7 @@ const Category =require('./models/Category');
 const categoryRoutes=require('./routes/categoryRoutes');
 const Item =require('./models/Item');
 const itemRoutes=require('./routes/itemRoutes');
+// const authRoutes=require('../auth/authRoutes');
 
 // middleware
 app.use(cors());
@@ -33,6 +34,7 @@ app.get("/", (req, res) => {
 app.use('/api/tables', tableRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/items', itemRoutes);
+// app.use('/api/auth',authRoutes)
 
 console.log('About to start server...');
 app.listen(PORT, () => {
