@@ -24,7 +24,7 @@ function ItemMainComponent() {
         {activeForm === 'add' && <AddItemForm setDisplay={() => setActiveForm(null)} />}
         {activeForm === 'delete' && <DeleteItemForm setDisplay={() => setActiveForm(null)} />}
         {activeForm === 'update' && <UpdateItemForm setDisplay={() => setActiveForm(null)} />}
-        {activeForm === 'display' && <DisplayMenu setDisplay={() => setActiveForm(null)} />}
+        {activeForm === 'display' && <DisplayItem setDisplay={() => setActiveForm(null)} />}
 
         {/* When no form is active, show the buttons */}
         {!activeForm && (
