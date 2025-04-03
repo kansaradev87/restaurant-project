@@ -3,7 +3,9 @@
     export const AuthContext = createContext();
 
     export const AuthProvider = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(() => {
+        return !!localStorage.getItem('authToken'); // Check if token exists on page load
+    });
 
     useEffect(() => {
         const token = localStorage.getItem('authToken');

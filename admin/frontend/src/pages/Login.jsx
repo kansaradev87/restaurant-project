@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { AuthContext } from '../context/authContext.jsx'; // Import AuthContext
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function LoginPage({ setIsAuthenticated }) {
+function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext); // Get login function from context
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -22,8 +24,7 @@ function LoginPage({ setIsAuthenticated }) {
     
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login', { username, password });
-      localStorage.setItem('authToken', response.data.token);
-      setIsAuthenticated(true);
+      login(response.data.token); // Use login function from AuthContext
       toast.success('Login successful!');
       navigate('/home');
     } catch (error) {
