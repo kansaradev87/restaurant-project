@@ -1,5 +1,5 @@
 // models/Table.js
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 // Define the Table schema
 const tableSchema = new mongoose.Schema({
@@ -13,10 +13,10 @@ const tableSchema = new mongoose.Schema({
     required: true,
     min: 1,
   },
-  status:{
+  status: {
     type: String,
-    required:true,
-    default:"Available",
+    required: true,
+    default: "Available",
   },
   qrCode: {
     type: String, // Stores the QR code URL for this table
@@ -26,23 +26,27 @@ const tableSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  order:{
-    orderName:{
-      type:String,
-      default:""
+  orders: [
+    {
+      item: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Item", // References the Item model
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        default: 1,
+        min: 1,
+      },
+      price: {
+        type: Number,
+        required: true, // Stores item price at the time of order
+      },
     },
-    orderQuantity:{
-      type: Number,
-      default: 0,
-    },
-    orderPrice:{
-      type: Number,
-      default:0,
-    },
-  }
+  ],
 });
 
 // Create Table model
-const Table = mongoose.model('Table', tableSchema);
+const Table = mongoose.model("Table", tableSchema);
 
 module.exports = Table;

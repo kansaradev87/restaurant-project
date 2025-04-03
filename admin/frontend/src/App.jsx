@@ -12,6 +12,7 @@ import DisplayMenu from './pages/DisplayMenu';
 import Category from './components/menu/category/Category';
 import Item from './components/menu/item/Item';
 import Login from './pages/Login';
+import Order from './pages/Order';
 
 function App() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -36,6 +37,7 @@ function App() {
         ) : (
           <Route path="*" element={<Navigate to="/" />} />
         )}
+        <Route path='/order/:tableId' element={<Order/>}/>
       </Routes>
     </BrowserRouter>
   );
