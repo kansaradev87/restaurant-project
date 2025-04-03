@@ -18,6 +18,10 @@ const tableSchema = new mongoose.Schema({
     required:true,
     default:"Available",
   },
+  qrCode: {
+    type: String, // Stores the QR code URL for this table
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
