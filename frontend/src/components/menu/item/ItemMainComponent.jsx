@@ -7,7 +7,6 @@ import AddItemForm from './forms/AddItemForm';
 import DeleteItemForm from './forms/DeleteItemForm';
 import UpdateItemForm from './forms/UpdateItemForm';
 import DisplayItem from './forms/DisplayItem';
-import DisplayMenu from '../DisplayMenuComponent';
 
 function ItemMainComponent() {
   // State to track which form is currently active
