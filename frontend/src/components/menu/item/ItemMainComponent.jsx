@@ -7,6 +7,7 @@ import AddItemForm from './forms/AddItemForm';
 import DeleteItemForm from './forms/DeleteItemForm';
 import UpdateItemForm from './forms/UpdateItemForm';
 import DisplayItem from './forms/DisplayItem';
+import DisplayMenu from '../DisplayMenuComponent';
 
 function ItemMainComponent() {
   // State to track which form is currently active
@@ -23,7 +24,7 @@ function ItemMainComponent() {
         {activeForm === 'add' && <AddItemForm setDisplay={() => setActiveForm(null)} />}
         {activeForm === 'delete' && <DeleteItemForm setDisplay={() => setActiveForm(null)} />}
         {activeForm === 'update' && <UpdateItemForm setDisplay={() => setActiveForm(null)} />}
-        {activeForm === 'display' && <DisplayItem setDisplay={() => setActiveForm(null)} />}
+        {activeForm === 'display' && <DisplayMenu setDisplay={() => setActiveForm(null)} />}
 
         {/* When no form is active, show the buttons */}
         {!activeForm && (
