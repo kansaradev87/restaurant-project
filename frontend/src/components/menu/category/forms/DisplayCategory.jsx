@@ -38,13 +38,13 @@ function DisplayCategory() {
         <table className=''>
           <thead>
             <tr>
-              <th className='text-3xl px-5'>Category Name</th> {/* ✅ Single header */}
+              <th className='text-3xl px-5'>Category Name</th> {/* Single header */}
             </tr>
           </thead>
           <tbody className='lg:w-auto w-full'>
             {Categories.map((category, index) => (
               <tr key={index} className='border dark:bg-darkmode-components lg:w-auto w-full'> {/* ✅ Each category gets its own <tr> */}
-                <td className='lg:w-auto w-screen'>{category.name}</td> {/* ✅ Category name in its own row */}
+                <td className='lg:w-auto w-screen'>{category.name}</td> {/* category name in its own row */}
               </tr>
             ))}
           </tbody>
