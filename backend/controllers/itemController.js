@@ -66,3 +66,34 @@ exports.deleteItem = async (req, res) => {
         res.status(500).json({ message: "server error", error: error.message });
     }
 };
+    exports.getItemsByCategoryName = async (req, res) => {
+    try {
+        const { categoryName } = req.params;
+        console.log(`Fetching items for category: ${categoryName}`);
+
+        if (!categoryName) {
+        return res.status(400).json({ message: "Category name is required" });
+        }
+
+        // Find the category by name
+        const category = await Category.findOne({ name: categoryName });
+        if (!category) {
+        return res.status(404).json({ message: "Category not found" });
+        }
+
+        // Convert the ObjectId to a string before querying
+        const categoryId = category._id.toString();
+
+        // Fetch items using the string version of the ObjectId
+        const items = await Item.find({ category: categoryId });
+
+        if (!items.length) {
+        return res.status(404).json({ message: "No items found in this category" });
+        }
+
+        res.json(items);
+    } catch (error) {
+        console.error("Error fetching items by category:", error.message);
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+    };

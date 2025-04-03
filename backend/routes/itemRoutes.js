@@ -5,5 +5,7 @@ const itemController=require('../controllers/itemController');
 router.get('/',itemController.getAllItems);
 router.post('/',itemController.createItem);
 router.delete('/:name/:category',itemController.deleteItem);
+router.get("/category/:categoryName", itemController.getItemsByCategoryName);
+
 
 module.exports=router
