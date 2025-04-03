@@ -49,6 +49,7 @@ function DisplayTable() {
               <p className="text-xs sm:text-sm mt-1">Capacity: {table.capacity}</p>
               <p className="text-xs sm:text-sm mt-1 font-semibold">
                 {table.status === 'Available' ? 'Available' : 'Occupied'}
+                <img src={table.qrCode} alt={table.name} />
               </p>
             </div>
           </button>
