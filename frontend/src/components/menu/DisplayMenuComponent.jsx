@@ -93,7 +93,7 @@ function DisplayMenu() {
                       <div key={item._id || item.id} className="border rounded p-4 hover:shadow-md transition-shadow">
                         <div className="flex justify-between items-start">
                           <h3 className="font-medium text-lg">{item.name}</h3>
-                          <div className="font-bold">${item.price?.toFixed(2) || 'N/A'}</div>
+                          <div className="font-bold">₹{item.price?.toFixed(2) || 'N/A'}</div>
                         </div>
                         {item.description && (
                           <p className="text-gray-600 mt-2 text-sm">{item.description}</p>
