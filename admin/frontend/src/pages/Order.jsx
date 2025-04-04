@@ -6,6 +6,8 @@ function Order() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [quantities, setQuantities] = useState({});
+  const [toast, setToast] = useState({ show: false, message: '', type: '' });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,6 +19,13 @@ function Order() {
         // Fetch items
         const itemsResponse = await axios.get('http://localhost:5000/api/items');
         setItems(itemsResponse.data);
+        
+        // Initialize quantities for all items
+        const initialQuantities = {};
+        itemsResponse.data.forEach(item => {
+          initialQuantities[item._id || item.id] = 1;
+        });
+        setQuantities(initialQuantities);
         
         // Debug: Log the first item to see its structure
         if (itemsResponse.data.length > 0) {
@@ -33,41 +42,91 @@ function Order() {
     fetchData();
   }, []);
 
+  // Show toast message
+  const showToast = (message, type = 'success') => {
+    setToast({ show: true, message, type });
+    setTimeout(() => {
+      setToast({ show: false, message: '', type: '' });
+    }, 3000); // Hide toast after 3 seconds
+  };
+
+  // Update item quantity
+  const updateQuantity = (itemId, delta) => {
+    setQuantities(prev => {
+      const newValue = Math.max(1, (prev[itemId] || 1) + delta);
+      return { ...prev, [itemId]: newValue };
+    });
+  };
+
   // Group items by category
   const getItemsByCategory = (categoryId) => {
-    // Debug log to examine data
-    console.log(`Filtering for category ID: ${categoryId}`);
-    console.log(`Available category IDs in items:`, items.map(item => item.category));
-    
-    // Filter items that belong to this specific category
     return items.filter(item => {
-      // Check which property holds the category information
-      // Assuming the category is either stored directly as 'category' or as a reference 'categoryId'
       return (
-        // Direct match (if category is stored as a string or number)
         item.category === categoryId ||
-        // Match by ID (if category is stored as an object with an ID)
         (item.category && item.category._id === categoryId) ||
-        // Match by string ID
         (item.category && item.category.id === categoryId) ||
-        // Match by categoryId field
         item.categoryId === categoryId ||
-        // Match by category_id field (snake case)
         item.category_id === categoryId
       );
     });
   };
 
+  const orderSubmit = async (item) => {
+    try {
+      // Get the table name from the URL path
+      const tableName = window.location.pathname.split('/').pop();
+      
+      // Find table ID by name first
+      const tablesResponse = await axios.get('http://localhost:5000/api/tables');
+      const table = tablesResponse.data.find(t => t.name === tableName);
+      
+      if (!table) {
+        console.error("Table not found");
+        showToast("Table not found", "error");
+        return;
+      }
+      
+      const tableId = table._id;
+      const itemId = item._id || item.id;
+      const quantity = quantities[itemId] || 1;
+      
+      // Submit the order for this table
+      const response = await axios.post(`http://localhost:5000/api/tables/${tableId}/order`, {
+        items: [{
+          item: itemId,
+          quantity: quantity,
+          price: item.price
+        }]
+      });
+      
+      console.log("Order submitted successfully:", response.data);
+      showToast(`Added ${quantity} ${item.name} to table ${table.name}`);
+      
+    } catch (error) {
+      console.error("Error submitting order:", error);
+      showToast("Failed to place order", "error");
+    }
+  };
+  
   if (loading) {
     return <div className="p-4 text-center">Loading items...</div>;
   }
-  
+
   return (
-    <div className="dark:border-0 flex justify-center items-center min-h-screen ">
+    <div className="dark:border-0 flex justify-center items-center min-h-screen">
+      {/* Toast notification */}
+      {toast.show && (
+        <div className={`fixed top-4 right-4 z-50 px-4 py-2 rounded-lg shadow-lg ${
+          toast.type === 'error' ? 'bg-red-500 text-white' : 'bg-green-500 text-white'
+        }`}>
+          {toast.message}
+        </div>
+      )}
+      
       <div className='md:h-[80vh] h-screen bg-lightmode dark:bg-darkmode-components md:rounded-2xl rounded-none 
         dark:border-0 dark:text-darkmode shadow-2xl 
-        md:w-full lg:w-5/6  w-screen md:mb-5
-        overflow-y-auto '>
+        md:w-full lg:w-5/6 w-screen md:mb-5
+        overflow-y-auto'>
         <div className="container mx-auto p-4">
           {error && <div className="bg-red-100 text-red-700 p-3 rounded mb-4">{error}</div>}
           
@@ -75,10 +134,7 @@ function Order() {
             <div className="text-center p-4 bg-gray-100 rounded">No categories available</div>
           ) : (
             categories.map((category) => {
-              // Get only items for this specific category
               const categoryItems = getItemsByCategory(category._id || category.id);
-              
-              // Skip categories with no items
               if (categoryItems.length === 0) {
                 return null;
               }
@@ -88,17 +144,44 @@ function Order() {
                   <h2 className="text-xl font-bold mb-4 pb-2 border-b">{category.name}</h2>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {categoryItems.map((item) => (
-                      <div key={item._id || item.id} className="border rounded p-4 hover:shadow-md transition-shadow">
-                        <div className="flex justify-between items-start">
-                          <h3 className="font-medium text-lg">{item.name}</h3>
-                          <div className="font-bold">₹{item.price?.toFixed(2) || 'N/A'}</div>
+                    {categoryItems.map((item) => {
+                      const itemId = item._id || item.id;
+                      const quantity = quantities[itemId] || 1;
+                      
+                      return (
+                        <div key={itemId} className="border rounded p-4">
+                          <div className="flex justify-between items-start mb-2">
+                            <h3 className="font-medium text-lg">{item.name}</h3>
+                            <div className="font-bold">₹{item.price?.toFixed(2) || 'N/A'}</div>
+                          </div>
                           
-                          <button className='bg-darkmode-bg'>order</button>
+                          <div className="flex justify-between items-center mt-2">
+                            <div className="flex items-center border rounded">
+                              <button 
+                                onClick={() => updateQuantity(itemId, -1)}
+                                className="px-3 py-1 border-r"
+                              >
+                                -
+                              </button>
+                              <span className="px-3 py-1">{quantity}</span>
+                              <button 
+                                onClick={() => updateQuantity(itemId, 1)}
+                                className="px-3 py-1 border-l"
+                              >
+                                +
+                              </button>
+                            </div>
+                            
+                            <button 
+                              onClick={() => orderSubmit(item)} 
+                              className='border border-red-500 rounded-md px-3 py-1 hover:bg-red-500 hover:text-white duration-200'
+                            >
+                              Add to Order
+                            </button>
+                          </div>
                         </div>
-                        
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               );

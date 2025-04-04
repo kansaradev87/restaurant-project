@@ -33,12 +33,14 @@ try {
 
 // Get All Tables
 exports.getAllTables = async (req, res) => {
-try {
-    const tables = await Table.find().sort({ createdAt: -1 });
+    try {
+    const tables = await Table.find()
+        .populate('orders.item')  // Add this line to populate item references
+        .sort({ createdAt: -1 });
     res.json(tables);
-} catch (error) {
+    } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
-}
+    }
 };
 
 // Delete Table by ID
@@ -116,25 +118,25 @@ try {
 exports.orderTable=async(req,res)=>{
     const { tableId } = req.params;
     const { items } = req.body; // Array of items ordered
-  
+
     try {
-      const table = await Table.findById(tableId);
-      if (!table) return res.status(404).json({ message: "Table not found" });
-  
-      // Add items to the table's order list
-      table.orders.push(...items);
-      await table.save();
-  
-      res.json({ message: "Order placed successfully", orders: table.orders });
+    const table = await Table.findById(tableId);
+    if (!table) return res.status(404).json({ message: "Table not found" });
+
+    // Add items to the table's order list
+    table.orders.push(...items);
+    await table.save();
+
+    res.json({ message: "Order placed successfully", orders: table.orders });
     } catch (error) {
-      res.status(500).json({ message: "Error placing order", error });
+    res.status(500).json({ message: "Error placing order", error });
     }
-  
+
 }
 
 exports.displayOrders=async (req,res)=>{
         try {
-            const tablesWithOrders = await Table.find({ "orders.0": { $exists: true } }); // Find tables that have orders
+            const tablesWithOrders = await Table.find({ "orders.0": { $exists: true } }); 
             res.json(tablesWithOrders);
         } catch (error) {
             res.status(500).json({ message: "Error fetching orders", error });
