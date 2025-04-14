@@ -89,7 +89,7 @@ function Order() {
       if (existingItemIndex !== -1) {
         // Item exists, update quantity with exactly the selected amount
         const updatedCart = [...prevCart];
-        updatedCart[existingItemIndex].quantity += itemQuantity; // Add exactly the selected quantity
+        updatedCart[existingItemIndex].quantity = itemQuantity; // Add exactly the selected quantity
         showToast(`Added ${itemQuantity} ${item.name} to cart (${updatedCart[existingItemIndex].quantity} total)`);
         return updatedCart;
       } else {
@@ -203,13 +203,13 @@ function Order() {
           toast.type === 'info' ? 'bg-blue-500 text-white' : 'bg-green-500 text-white'
         } transform transition-transform duration-300 ease-in-out`}>
           <span className="mr-2">
-            {toast.type === 'error' ? '❌' : toast.type === 'info' ? 'ℹ️' : '✅'}
+            {toast.type === 'error' ? '' : toast.type === 'info' ? 'ℹ' : ''}
           </span>
           {toast.message}
         </div>
       )}
       
-      {/* Cart button (fixed) */}
+      {/* Cart button */}
       <div className="fixed bottom-4 right-4 z-40">
         <button 
           onClick={() => setCartVisible(!cartVisible)}
