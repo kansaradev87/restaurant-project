@@ -12,8 +12,8 @@ function RevenueMainComponent() {
   const [totalRevenue, setTotalRevenue] = useState(0);
   const [chartData, setChartData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
+  const COLORS = ['#ff5733', '#33b5ff', '#ff8c00', '#00c853', '#ff4081', '#9c27b0'];
 
-  const COLORS = ['#6366f1', '#8b5cf6', '#ec4899', '#14b8a6', '#06b6d4', '#0ea5e9'];
 
   useEffect(() => {
     fetchRevenueData();
@@ -96,9 +96,10 @@ function RevenueMainComponent() {
 
   return (
     <div className="dark:border-0 flex w-full">
+      <title>Revenue Dashboard</title>
       <div className="md:h-[80vh] h-screen bg-lightmode dark:bg-darkmode-components md:rounded-2xl w-full shadow-2xl overflow-auto">
         <div className="p-4 md:p-6">
-          <h1 className="text-2xl md:text-3xl font-bold mb-6">Revenue Dashboard</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 dark:text-lightmode">Revenue Dashboard</h1>
 
           {error && (
             <div className="bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-300 p-4 rounded-xl mb-4">
@@ -127,7 +128,7 @@ function RevenueMainComponent() {
           {/* Charts */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             <div className="border p-4 rounded-xl">
-              <h2 className="text-lg font-semibold mb-4">Daily Revenue</h2>
+              <h2 className="text-lg font-semibold mb-4 dark:text-lightmode">Daily Revenue</h2>
               {chartData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={300}>
                   <LineChart data={chartData}>
@@ -140,12 +141,12 @@ function RevenueMainComponent() {
                   </LineChart>
                 </ResponsiveContainer>
               ) : (
-                <div className="text-center text-gray-500">No chart data</div>
+                <div className="text-center text-gray-500 dark:text-lightmode">No chart data</div>
               )}
             </div>
 
             <div className="border p-4 rounded-xl">
-              <h2 className="text-lg font-semibold mb-4">Revenue by Item</h2>
+              <h2 className="text-lg font-semibold mb-4 dark:text-lightmode">Revenue by Item</h2>
               {categoryData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={300}>
                   <PieChart>
@@ -173,12 +174,12 @@ function RevenueMainComponent() {
 
           {/* Table of Transactions */}
           <div className="border p-4 rounded-xl mb-4">
-            <h2 className="text-lg font-semibold mb-4">Transaction Details</h2>
+            <h2 className="text-lg font-semibold mb-4 dark:text-lightmode">Transaction Details</h2>
             <div className="overflow-x-auto">
               <table className="min-w-full text-sm">
-                <thead className="bg-gray-100 dark:bg-darkmode-hover">
+                <thead className="bg-gray-100 dark:bg-darkmode-hover dark:text-gray-300">
                   <tr>
-                    <th className="p-3 text-left font-semibold">Table</th>
+                    <th className="p-3 text-left font-semibold ">Table</th>
                     <th className="p-3 text-left font-semibold">Amount</th>
                     <th className="p-3 text-left font-semibold">Date</th>
                     <th className="p-3 text-left font-semibold">Status</th>
@@ -186,9 +187,9 @@ function RevenueMainComponent() {
                 </thead>
                 <tbody>
                   {revenues.map((rev, i) => (
-                    <tr key={i} className="border-t">
+                    <tr key={i} className="border-t dark:text-lightmode">
                       <td className="p-3">{rev.tableName || 'Unknown'}</td>
-                      <td className="p-3 text-blue-600">₹{(rev.total || 0).toFixed(2)}</td>
+                      <td className="p-3 dark:text-green-200 text-green-700">₹{(rev.total || 0).toFixed(2)}</td>
                       <td className="p-3">{formatDate(rev.paymentDate)}</td>
                       <td className="p-3">
                         <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full">Paid</span>

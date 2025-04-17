@@ -14,6 +14,7 @@ function CategoryMainComponent() {
 
   return (
     <div className="dark:border-0 flex overflow-x-hidden">
+      <title>Category</title>
       <div className="md:h-[80vh] h-screen bg-lightmode dark:bg-darkmode-components md:rounded-2xl rounded-none 
         dark:border-0 dark:text-darkmode shadow-lg 
         md:w-full sm:w-screen w-screen md:mb-5

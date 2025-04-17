@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom'
 function MenuMainComponent() {
   return (
     <div className="dark:border-0 flex w-full">
+      <title>Menu</title>
       <div className='md:h-[80vh] h-screen bg-lightmode dark:bg-darkmode-components md:rounded-2xl rounded-none 
         w-full dark:border-0 dark:text-darkmode shadow-2xl md:mb-5 overflow-hidden'>
         
