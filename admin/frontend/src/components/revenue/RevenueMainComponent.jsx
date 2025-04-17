@@ -96,7 +96,7 @@ function RevenueMainComponent() {
 
   return (
     <div className="dark:border-0 flex w-full">
-      <title>Revenue Dashboard</title>
+      <title>Revenue</title>
       <div className="md:h-[80vh] h-screen bg-lightmode dark:bg-darkmode-components md:rounded-2xl w-full shadow-2xl overflow-auto">
         <div className="p-4 md:p-6">
           <h1 className="text-2xl md:text-3xl font-bold mb-6 dark:text-lightmode">Revenue Dashboard</h1>
