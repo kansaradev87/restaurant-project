@@ -8,6 +8,7 @@ function DisplayTable() {
   const [selectedTable, setSelectedTable] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [items, setItems] = useState([]); // Store all items for reference
+  const [processingPayment, setProcessingPayment] = useState(false);
 
   useEffect(() => {
     const fetchTables = async () => {
@@ -51,6 +52,51 @@ function DisplayTable() {
     return item ? item.name : `Item #${itemId}`;
   };
 
+  // Function to handle payment process
+  const handlePayment = async () => {
+    if (!selectedTable || !selectedTable._id || selectedTable.orders.length === 0) {
+      setMessage('No orders to process payment');
+      return;
+    }
+
+    setProcessingPayment(true);
+    
+    try {
+      // Call the API endpoint to process payment
+      const response = await axios.post('http://localhost:5000/api/revenue/process-payment', {
+        tableId: selectedTable._id,
+        orders: selectedTable.orders,
+        total: selectedTable.orders.reduce((sum, order) => sum + (order.price * order.quantity), 0).toFixed(2)
+      });
+      
+      // Update the local state to reflect the changes
+      setTables(prevTables => 
+        prevTables.map(table => 
+          table._id === selectedTable._id 
+          ? {...table, orders: [], status: 'Available'} 
+          : table
+        )
+      );
+      
+      // Update selected table
+      setSelectedTable({...selectedTable, orders: [], status: 'Available'});
+      
+      setMessage('Payment processed successfully');
+      
+      // Close modal after 2 seconds
+      setTimeout(() => {
+        closeModal();
+        setMessage('');
+      }, 2000);
+      
+    } catch (error) {
+      console.error('Error processing payment:', error);
+      setMessage('Failed to process payment. Please try again.');
+    } finally {
+      setProcessingPayment(false);
+    }
+  };
+
   // Display loading message or tables based on the fetching state
   if (fetchingTables) {
     return <div className="flex justify-center items-center min-h-screen">Loading tables...</div>;
@@ -58,7 +104,7 @@ function DisplayTable() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {message && <div className="bg-red-100 text-red-700 p-4 rounded mb-4">{message}</div>}
+      {message && <div className={`p-4 rounded mb-4 ${message.includes('Failed') ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>{message}</div>}
       
       <h1 className="text-2xl font-bold mb-6">Restaurant Tables</h1>
       
@@ -178,6 +224,15 @@ function DisplayTable() {
               
               {/* Action Buttons */}
               <div className="mt-6 flex justify-end space-x-3">
+                {selectedTable.orders && selectedTable.orders.length > 0 && (
+                  <button
+                    onClick={handlePayment}
+                    disabled={processingPayment}
+                    className={`bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md transition-colors duration-200 ${processingPayment ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  >
+                    {processingPayment ? 'Processing...' : 'Process Payment'}
+                  </button>
+                )}
                 <button
                   onClick={closeModal}
                   className="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-md transition-colors duration-200"
