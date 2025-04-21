@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {
-  LineChart, Line, PieChart, Pie, XAxis, YAxis, CartesianGrid,
-  Tooltip, Legend, ResponsiveContainer, Cell
-} from 'recharts';
+import RevenueChart from './RevenueChart';
+import TransactionTable from './TransactionTable';
 
 function RevenueMainComponent() {
   const [revenues, setRevenues] = useState([]);
@@ -13,7 +11,6 @@ function RevenueMainComponent() {
   const [chartData, setChartData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
   const COLORS = ['#ff5733', '#33b5ff', '#ff8c00', '#00c853', '#ff4081', '#9c27b0'];
-
 
   useEffect(() => {
     fetchRevenueData();
@@ -56,8 +53,7 @@ function RevenueMainComponent() {
       if (revenue.orders && Array.isArray(revenue.orders)) {
         revenue.orders.forEach(order => {
           if (order.itemName) {
-            itemsMap[order.itemName] = (itemsMap[order.itemName] || 0) + 
-              ((order.price || 0) * (order.quantity || 0));
+            itemsMap[order.itemName] = (itemsMap[order.itemName] || 0) + ((order.price || 0) * (order.quantity || 0));
           }
         });
       }
@@ -96,17 +92,9 @@ function RevenueMainComponent() {
 
   return (
     <div className="dark:border-0 flex w-full">
-      <title>Revenue</title>
       <div className="md:h-[80vh] h-screen bg-lightmode dark:bg-darkmode-components md:rounded-2xl w-full shadow-2xl overflow-auto">
         <div className="p-4 md:p-6">
           <h1 className="text-2xl md:text-3xl font-bold mb-6 dark:text-lightmode">Revenue Dashboard</h1>
-
-          {error && (
-            <div className="bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-300 p-4 rounded-xl mb-4">
-              <p>{error}</p>
-            </div>
-          )}
-
           {/* Summary Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
             <div className="border rounded-xl p-5">
@@ -127,85 +115,12 @@ function RevenueMainComponent() {
 
           {/* Charts */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-            <div className="border p-4 rounded-xl">
-              <h2 className="text-lg font-semibold mb-4 dark:text-lightmode">Daily Revenue</h2>
-              {chartData.length > 0 ? (
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#6b7280" strokeOpacity={0.3} />
-                    <XAxis dataKey="date" tickFormatter={formatXAxis} stroke="#6b7280" />
-                    <YAxis stroke="#6b7280" />
-                    <Tooltip formatter={(value) => `₹${value.toFixed(2)}`} />
-                    <Legend />
-                    <Line type="monotone" dataKey="revenue" stroke="#6366f1" strokeWidth={2} name="Revenue" />
-                  </LineChart>
-                </ResponsiveContainer>
-              ) : (
-                <div className="text-center text-gray-500 dark:text-lightmode">No chart data</div>
-              )}
-            </div>
-
-            <div className="border p-4 rounded-xl">
-              <h2 className="text-lg font-semibold mb-4 dark:text-lightmode">Revenue by Item</h2>
-              {categoryData.length > 0 ? (
-                <ResponsiveContainer width="100%" height={300}>
-                  <PieChart>
-                    <Pie
-                      data={categoryData.slice(0, 8)}
-                      cx="50%"
-                      cy="50%"
-                      outerRadius={80}
-                      dataKey="value"
-                      nameKey="name"
-                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                    >
-                      {categoryData.slice(0, 8).map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip formatter={(value) => `₹${value.toFixed(2)}`} />
-                  </PieChart>
-                </ResponsiveContainer>
-              ) : (
-                <div className="text-center text-gray-500">No item data</div>
-              )}
-            </div>
+            <RevenueChart chartType="line" data={chartData} COLORS={COLORS} formatXAxis={formatXAxis} dataKey="revenue" name="Revenue" />
+            <RevenueChart chartType="pie" data={categoryData} COLORS={COLORS} isPieChart />
           </div>
 
-          {/* Table of Transactions */}
-          <div className="border p-4 rounded-xl mb-4">
-            <h2 className="text-lg font-semibold mb-4 dark:text-lightmode">Transaction Details</h2>
-            <div className="overflow-x-auto">
-              <table className="min-w-full text-sm">
-                <thead className="bg-gray-100 dark:bg-darkmode-hover dark:text-gray-300">
-                  <tr>
-                    <th className="p-3 text-left font-semibold ">Table</th>
-                    <th className="p-3 text-left font-semibold">Amount</th>
-                    <th className="p-3 text-left font-semibold">Date</th>
-                    <th className="p-3 text-left font-semibold">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {revenues.map((rev, i) => (
-                    <tr key={i} className="border-t dark:text-lightmode">
-                      <td className="p-3">{rev.tableName || 'Unknown'}</td>
-                      <td className="p-3 dark:text-green-200 text-green-700">₹{(rev.total || 0).toFixed(2)}</td>
-                      <td className="p-3">{formatDate(rev.paymentDate)}</td>
-                      <td className="p-3">
-                        <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full">Paid</span>
-                      </td>
-                    </tr>
-                  ))}
-                  {revenues.length === 0 && !loading && (
-                    <tr><td colSpan="4" className="text-center py-8 text-gray-500">No transactions found.</td></tr>
-                  )}
-                  {loading && (
-                    <tr><td colSpan="4" className="text-center py-8 text-gray-500">Loading data...</td></tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </div>
+          {/* Transaction Table */}
+          <TransactionTable revenues={revenues} loading={loading} formatDate={formatDate} />
         </div>
       </div>
     </div>

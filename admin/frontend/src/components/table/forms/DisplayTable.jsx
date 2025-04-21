@@ -106,8 +106,8 @@ function DisplayTable() {
     <div className="container mx-auto px-4 py-8">
       {message && <div className={`p-4 rounded mb-4 ${message.includes('Failed') ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>{message}</div>}
       
-      <h1 className="text-2xl font-bold mb-6">Restaurant Tables</h1>
-      
+      {/* <h1 className="text-2xl font-bold mb-6">Restaurant Tables</h1>
+       */}
       {tables.length === 0 ? (
         <div className="bg-gray-100 p-6 rounded-lg text-center">No tables available</div>
       ) : (
