@@ -15,6 +15,8 @@ const categoryRoutes=require('./routes/categoryRoutes');
 const Item =require('./models/Item');
 const itemRoutes=require('./routes/itemRoutes');
 const authRoutes=require('./routes/authRoutes');
+const Employee =require('./models/Employee');
+const employeeRoutes=require('./routes/employeeRoutes');
 const revenueRoutes=require('./routes/revenueRoutes');
 
 // middleware
@@ -37,6 +39,7 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/items', itemRoutes);
 app.use('/api/auth',authRoutes);
 app.use('/api/revenue',revenueRoutes);
+app.use('/api/employees',employeeRoutes);
 
 console.log('About to start server...');
 app.listen(PORT, '0.0.0.0',() => {
